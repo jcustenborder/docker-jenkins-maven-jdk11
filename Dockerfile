@@ -30,7 +30,7 @@ RUN curl -L https://github.com/docker/compose/releases/download/1.25.5/docker-co
 
 ENV MAVEN_HOME /usr/share/maven
 ENV MAVEN_CONFIG "$USER_HOME_DIR/.m2"
-##ENV JAVA_HOME=/etc/alternatives/java_sdk_1.8.0
+ENV JAVA_HOME=/usr/local/openjdk-11
 ENV LC_ALL=en_US.UTF-8
 ENV LANG=en_US.UTF-8
 ENV LANGUAGE=en_US.UTF-8
