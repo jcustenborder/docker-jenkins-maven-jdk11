@@ -11,10 +11,14 @@ ARG USER_HOME_DIR='/home/jenkins'
 RUN groupadd -g 994 docker
 RUN useradd --uid 1000 -m -G docker jenkins
 
+RUN curl https://baltocdn.com/helm/signing.asc | gpg --dearmor > /usr/share/keyrings/helm.gpg > /dev/null && \
+    apt-get install apt-transport-https --yes && \
+    echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/helm.gpg] https://baltocdn.com/helm/stable/debian/ all main" > /etc/apt/sources.list.d/helm-stable-debian.list && \
+
 RUN curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add -
 RUN apt-get update && \
     apt-get -y upgrade && \
-    apt-get -y install lsb-release git graphviz apt-transport-https ca-certificates curl gnupg-agent software-properties-common && \
+    apt-get -y install lsb-release git graphviz apt-transport-https ca-certificates curl gnupg-agent software-properties-common helm && \
     add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/debian $(lsb_release -cs) stable" && \
     apt-get update && \
     apt-get -y install docker-ce docker-ce-cli containerd.io && \
@@ -27,7 +31,7 @@ RUN mkdir -p /usr/share/maven /usr/share/maven/ref \
 
 RUN curl -L https://github.com/docker/compose/releases/download/1.25.5/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose && \
     chmod +x /usr/local/bin/docker-compose
-
+   
 ENV MAVEN_HOME /usr/share/maven
 ENV MAVEN_CONFIG "$USER_HOME_DIR/.m2"
 ENV JAVA_HOME=/usr/local/openjdk-11
