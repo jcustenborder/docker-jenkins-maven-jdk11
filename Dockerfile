@@ -11,9 +11,7 @@ ARG USER_HOME_DIR='/home/jenkins'
 RUN groupadd -g 994 docker
 RUN useradd --uid 1000 -m -G docker jenkins
 
-RUN curl https://baltocdn.com/helm/signing.asc | gpg --dearmor > /usr/share/keyrings/helm.gpg > /dev/null && \
-    apt-get install apt-transport-https --yes && \
-    echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/helm.gpg] https://baltocdn.com/helm/stable/debian/ all main" > /etc/apt/sources.list.d/helm-stable-debian.list && \
+RUN curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
 
 RUN curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add -
 RUN apt-get update && \
