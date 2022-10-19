@@ -16,7 +16,7 @@ RUN curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | b
 RUN curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add -
 RUN apt-get update && \
     apt-get -y upgrade && \
-    apt-get -y install lsb-release git graphviz apt-transport-https ca-certificates curl gnupg-agent software-properties-common helm && \
+    apt-get -y install lsb-release git graphviz apt-transport-https ca-certificates curl gnupg-agent software-properties-common && \
     add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/debian $(lsb_release -cs) stable" && \
     apt-get update && \
     apt-get -y install docker-ce docker-ce-cli containerd.io && \
